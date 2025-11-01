@@ -1,0 +1,30 @@
+{{ include('layouts/header.php', {title:'Reservation Edit'})}}
+<div class="container">
+    <form class="form-base" method="post">
+
+        <h2>{{ site.siteNom }}</h2>
+        <picture><img src="{{asset}}{{ site.urlImage }}" alt=""></picture>
+        <input type="hidden" name="id" value="{{ reservation.id }}">
+        <input type="hidden" name="courriel" value="{{ reservation.courriel }}">
+
+        <label>Date d'arrivee</label>
+        <input type="date" name="dateArrivee" value="{{ reservation.dateArrivee }}">
+
+        <label>Date de depart</label>
+        <input type="date" name="dateDepart" value="{{ reservation.dateDepart }}">
+
+
+        <label>Nombre de personnes</label>
+        <input type="text" name="nbrDePersonnes" value="{{ reservation.nbrDePersonnes }}">
+
+        <label>Statut</label>
+        <select name="statutId">
+            {% for statut in statuts %}
+            <option value="{{ statut.id }}" {% if statut.id == reservation.statutId %} selected {% endif %}>{{ statut.statutDescription }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" class="boutton-submit" value="update">
+    </form>
+</div>
+{{ include('layouts/footer.php')}}
