@@ -74,7 +74,6 @@ class ReservationController
                     return View::render('error', ['msg' => 'Aucune réservation ne correspond à ce courriel!']);
                 }
             } else {
-                //todo
                 return View::render('error', ['msg' => 'Courriel manquant pour afficher les réservations!']);
             }
         } else {
@@ -120,7 +119,6 @@ class ReservationController
                 $update = $reservation->update($data, $get['id']);
 
                 if ($update) {
-                    var_dump($update);
                     View::redirect('reservation/show?courriel=' . $data['courriel']);
                 } else {
                     return View::render('error', ['msg' => 'Echec de la mise à jour!']);
