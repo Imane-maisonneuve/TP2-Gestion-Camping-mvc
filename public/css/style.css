@@ -271,3 +271,7 @@ select {
   display: flex;
   gap: 20px;
 }
+
+.error {
+  color: red;
+}

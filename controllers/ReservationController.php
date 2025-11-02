@@ -37,28 +37,24 @@ class ReservationController
     public function store($data)
     {
 
-        // $validator = new Validator;
-        // $validator->field('name', $data['name'])->min(2)->max(45);
-        // $validator->field('address', $data['address'])->max(45);
-        // $validator->field('zip_code', $data['zip_code'], 'Zip Code')->max(10);
-        // $validator->field('phone', $data['phone'])->max(20);
-        // $validator->field('email', $data['email'])->email()->max(45);
-        // $validator->field('statut_id', $data['statut_id'], 'Statut')->required()->int();
-        // print_r($data);
-        // die();
+        $validator = new Validator;
+        $validator->field('dateArrivee', $data['dateArrivee'])->validateDate();
+        $validator->field('dateDepart', $data['dateDepart'])->validateDate();
+        $validator->field('nbrDePersonnes', $data['nbrDePersonnes'])->int()->max(10);
+        $validator->field('courriel', $data['courriel'])->required()->email()->max(45);
 
-        // if ($validator->isSuccess()) {
+        if ($validator->isSuccess()) {
 
-        $reservation = new Reservation;
-        $insert = $reservation->insert($data);
-        return View::redirect('reservation/show?courriel=' . $data['courriel']);
-
-        //     $errors = $validator->getErrors();
-        //     $statut = new Statut;
-        //     $select = $statut->select('statut');
-
-        //     return View::render('reservation/create', ['errors' => $errors, 'cities' => $select, 'reservation' => $data]);
-        // }
+            $reservation = new Reservation;
+            $insert = $reservation->insert($data);
+            return View::redirect('reservation/show?courriel=' . $data['courriel']);
+        } else {
+            $errors = $validator->getErrors();
+            $reservation = new Reservation;
+            $site = new Site;
+            $selectId = $site->selectId($data['siteId']);
+            return View::render('reservation/create', ['errors' => $errors, 'site' => $selectId, 'reservation' => $data]);
+        }
     }
 
     public function show($data = [])
@@ -105,32 +101,36 @@ class ReservationController
     public function update($data = [], $get = [])
     {
         if (isset($get['id']) && $get['id'] != null) {
-            // $validator = new Validator;
-            // $validator->field('name', $data['name'])->min(2)->max(45);
-            // $validator->field('address', $data['address'])->max(45);
-            // $validator->field('zip_code', $data['zip_code'], 'Zip Code')->max(10);
-            // $validator->field('phone', $data['phone'])->max(20);
-            // $validator->field('email', $data['email'])->email()->max(45);
-            // $validator->field('statut_id', $data['statut_id'], 'Statut')->required()->int();
+            $validator = new Validator;
+            $validator->field('dateArrivee', $data['dateArrivee'])->validateDate();
+            $validator->field('dateDepart', $data['dateDepart'])->validateDate();
+            $validator->field('nbrDePersonnes', $data['nbrDePersonnes'])->int()->max(10);
+            $validator->field('courriel', $data['courriel'])->required()->email()->max(45);
+            $validator->field('statutId', $data['statutId'])->required();
+            print_r($data);
 
-            // if ($validator->isSuccess()) {
+            if ($validator->isSuccess()) {
 
-            $reservation = new Reservation;
-            $update = $reservation->update($data, $get['id']);
+                $reservation = new Reservation;
+                $update = $reservation->update($data, $get['id']);
 
-            if ($update) {
-                var_dump($update);
-                View::redirect('reservation/show?courriel=' . $data['courriel']);
+                if ($update) {
+                    var_dump($update);
+                    View::redirect('reservation/show?courriel=' . $data['courriel']);
+                } else {
+                    return View::render('error', ['msg' => 'Could not update!']);
+                }
             } else {
-                return View::render('error', ['msg' => 'Could not update!']);
-            }
-            // } else {
-            //     $errors = $validator->getErrors();
-            //     $statut = new Statut;
-            //     $select = $statut->select('statut');
+                $errors = $validator->getErrors();
+                $reservation = new Reservation;
+                $selectId = $reservation->selectId($data['id']);
+                $statut = new Statut;
+                $selectStatut = $statut->select();
+                $site = new Site;
+                $selectSite = $site->selectId($selectId['siteId']);
 
-            //     return View::render('reservation/edit', ['errors' => $errors, 'cities' => $select, 'reservation' => $data]);
-            // }
+                return View::render('reservation/edit', ['errors' => $errors, 'statuts' => $selectStatut, 'site' => $selectSite, 'reservation' => $selectId]);
+            }
         } else {
             return View::render('error', ['msg' => '404 page not found!']);
         }
