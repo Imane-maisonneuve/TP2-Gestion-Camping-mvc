@@ -8,6 +8,7 @@ use App\Controllers\ReservationController;
 
 Route::get('/', 'SiteController@index');
 Route::get('/sites', 'SiteController@index');
+Route::get('/reservations', 'ReservationController@index');
 
 Route::get('/reservation/create', 'ReservationController@create');
 Route::post('/reservation/create', 'ReservationController@store');

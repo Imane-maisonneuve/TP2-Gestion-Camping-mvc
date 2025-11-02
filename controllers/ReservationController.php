@@ -12,15 +12,11 @@ use App\Providers\Validator;
 class ReservationController
 {
 
-    // public function index()
-    // {
-    //     $reservation = new Reservation;
-    //     $select = $reservation->select();
 
-    //     return View::render("reservation/index", ['reservations' => $select]);
-    // }
-
-
+    public function index()
+    {
+        return View::render("reservation/index", ['ASSET' => ASSET, 'base' => BASE]);
+    }
 
     public function create($data = [])
     {
@@ -67,8 +63,6 @@ class ReservationController
 
     public function show($data = [])
     {
-        print_r($data);
-
         if (isset($data) && $data != null) {
             $reservation = new Reservation;
             $selectListe = $reservation->selectListe('courriel', $data['courriel']);

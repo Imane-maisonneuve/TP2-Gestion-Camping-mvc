@@ -38,7 +38,6 @@ abstract class CRUD extends \PDO
     final public function selectListe($field, $value,  $order = 'desc', $orderField = 'id')
     {
         $sql = "SELECT * FROM $this->table WHERE $field = :$field order by $orderField $order";
-        print_r($sql);
         $stmt = $this->prepare($sql);
         $stmt->bindValue(":$field", $value);
         $stmt->execute();

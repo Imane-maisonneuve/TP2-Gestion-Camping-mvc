@@ -13,9 +13,8 @@
         <nav id=navigation>
             <h1>Camping Les Belles Montagnes</h1>
             <div id=menu>
-                <!-- todo -->
-                <a href=""><img src="{{asset}}img/home.png" alt=""></a>
-                <a href=""><img src="{{asset}}img/user.png" alt=""></a>
+                <a href="{{base}}/"><img src="{{asset}}img/home.png" alt=""></a>
+                <a href="{{base}}/reservations"><img src="{{asset}}img/user.png" alt=""></a>
             </div>
         </nav>
     </header>
