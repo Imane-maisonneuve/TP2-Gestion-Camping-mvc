@@ -120,7 +120,7 @@ img {
   flex-wrap: wrap;
 }
 
-.carte > picture {
+picture {
   flex-basis: 250px;
   min-height: 140px;
   height: auto;
@@ -128,7 +128,7 @@ img {
   position: relative;
 }
 
-.carte > picture img {
+picture img {
   position: absolute;
   inset: 0;
   height: 100%;
@@ -198,7 +198,7 @@ select {
   border-radius: 4px;
 }
 
-.boutton-submit {
+.bouton-submit {
   min-width: 100px;
   background: #27ae60;
   color: #fff;
@@ -235,20 +235,27 @@ select {
 
 .reservation {
   border: 1px solid #d16c24;
-
   display: flex;
-
   gap: 10px;
   margin: 20px 0;
-  & .boutton-submit {
-    max-width: 100px;
-  }
+
   & picture {
-    max-width: 30%;
+    flex-grow: 1;
   }
-  & div {
-    padding: 10px;
-  }
+}
+
+.infos {
+  flex-grow: 2;
+  flex-basis: 40ch;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
 }
 
 .petit {

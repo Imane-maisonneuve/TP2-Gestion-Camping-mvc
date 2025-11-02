@@ -4,7 +4,11 @@
     <form class="form-base" action="{{base}}/reservation/show?courriel={{courriel}}">
         <label>Votre Courriel</label>
         <input type="email" name="courriel" value="">
-        <input type="submit" class="boutton-submit" value="Voir mes reservations">
+        {% if errors.courriel is defined %}
+        <span class="error">{{ errors.courriel }}</span>
+        {% endif %}
+
+        <input type="submit" class="bouton-submit" value="Voir mes reservations">
     </form>
 </div>
 {{ include('layouts/footer.php')}}

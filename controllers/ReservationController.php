@@ -58,21 +58,28 @@ class ReservationController
 
     public function show($data = [])
     {
-        if (isset($data) && $data != null) {
-            $reservation = new Reservation;
-            $selectListe = $reservation->selectListe('courriel', $data['courriel']);
-            if ($selectListe) {
-                $statut = new Statut;
-                $selectStatut = $statut->select();
-                $site = new Site;
-                $selectSite = $site->select();
-                return View::render("reservation/show", ['reservations' => $selectListe, 'statuts' => $selectStatut, 'sites' => $selectSite]);
+        $validator = new Validator;
+        $validator->field('courriel', $data['courriel'])->required()->email()->max(45);
+        if ($validator->isSuccess()) {
+            if (isset($data) && $data != null) {
+                $reservation = new Reservation;
+                $selectListe = $reservation->selectListe('courriel', $data['courriel']);
+                if ($selectListe) {
+                    $statut = new Statut;
+                    $selectStatut = $statut->select();
+                    $site = new Site;
+                    $selectSite = $site->select();
+                    return View::render("reservation/show", ['reservations' => $selectListe, 'statuts' => $selectStatut, 'sites' => $selectSite]);
+                } else {
+                    return View::render('error', ['msg' => 'Aucune réservation ne correspond à ce courriel!']);
+                }
             } else {
-                return View::render('error', ['msg' => 'Aucune réservation ne correspond à ce courriel!']);
+                //todo
+                return View::render('error', ['msg' => 'Courriel manquant pour afficher les réservations!']);
             }
         } else {
-            //todo
-            return View::render('error', ['msg' => 'Courriel manquant pour afficher les réservations!']);
+            $errors = $validator->getErrors();
+            return View::render('reservation/index', ['errors' => $errors, $data]);
         }
     }
 
@@ -106,7 +113,6 @@ class ReservationController
             $validator->field('nbrDePersonnes', $data['nbrDePersonnes'])->int()->max(10);
             $validator->field('courriel', $data['courriel'])->required()->email()->max(45);
             $validator->field('statutId', $data['statutId'])->required();
-            print_r($data);
 
             if ($validator->isSuccess()) {
 

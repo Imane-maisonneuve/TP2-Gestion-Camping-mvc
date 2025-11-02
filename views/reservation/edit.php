@@ -36,7 +36,7 @@
         <span class="error">{{ errors.statutId }}</span>
         {% endif %}
 
-        <input type="submit" class="boutton-submit" value="update">
+        <input type="submit" class="bouton-submit" value="Mettre à jour">
     </form>
 </div>
 {{ include('layouts/footer.php')}}

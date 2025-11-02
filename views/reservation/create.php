@@ -33,7 +33,7 @@
 
         <input type="hidden" name="siteId" value="{{ site.id }}">
 
-        <input type="submit" class="boutton-submit" value="Enregistrer la reservation">
+        <input type="submit" class="bouton-submit" value="Enregistrer la reservation">
     </form>
 </div>
 {{ include('layouts/footer.php')}}
