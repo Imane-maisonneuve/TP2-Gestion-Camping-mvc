@@ -1,5 +1,5 @@
-{{ include('layouts/header.php', {title:'Error'})}}
+{{ include('layouts/header.php', {title:'Erreur'})}}
 
-<div class="error">Error: {{ msg }}</div>
+<div class="error">Erreur: {{ msg }}</div>
 
 {{ include('layouts/footer.php')}}

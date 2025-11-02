@@ -26,11 +26,10 @@ class ReservationController
             if ($selectId) {
                 return View::render("reservation/create", ['site' => $selectId]);
             } else {
-                return View::render('error', ['msg' => 'Site(id) non trouvé dans la Bd!']);
+                return View::render('error', ['msg' => 'Site(id) non trouvé dans la Base de données!']);
             }
         } else {
-            //todo
-            return View::render('error', ['msg' => '404 page not found!']);
+            return View::render('error', ['msg' => 'Identifiant de site manquant ou invalide!']);
         }
     }
 
@@ -69,11 +68,11 @@ class ReservationController
                 $selectSite = $site->select();
                 return View::render("reservation/show", ['reservations' => $selectListe, 'statuts' => $selectStatut, 'sites' => $selectSite]);
             } else {
-                return View::render('error', ['msg' => 'Aucune reservation trouve!']);
+                return View::render('error', ['msg' => 'Aucune réservation ne correspond à ce courriel!']);
             }
         } else {
             //todo
-            return View::render('error', ['msg' => '404 page not found!']);
+            return View::render('error', ['msg' => 'Courriel manquant pour afficher les réservations!']);
         }
     }
 
@@ -91,10 +90,10 @@ class ReservationController
 
                 return View::render("reservation/edit", ['reservation' => $selectId, 'statuts' => $selectStatut, 'site' => $selectSite]);
             } else {
-                return View::render('error', ['msg' => 'Reservation not found!']);
+                return View::render('error', ['msg' => 'Aucune réservation trouvée pour cet identifiant!']);
             }
         } else {
-            return View::render('error', ['msg' => '404 page not found!']);
+            return View::render('error', ['msg' => 'Identifiant de réservation manquant ou invalide!']);
         }
     }
 
@@ -118,7 +117,7 @@ class ReservationController
                     var_dump($update);
                     View::redirect('reservation/show?courriel=' . $data['courriel']);
                 } else {
-                    return View::render('error', ['msg' => 'Could not update!']);
+                    return View::render('error', ['msg' => 'Echec de la mise à jour!']);
                 }
             } else {
                 $errors = $validator->getErrors();
@@ -132,7 +131,7 @@ class ReservationController
                 return View::render('reservation/edit', ['errors' => $errors, 'statuts' => $selectStatut, 'site' => $selectSite, 'reservation' => $selectId]);
             }
         } else {
-            return View::render('error', ['msg' => '404 page not found!']);
+            return View::render('error', ['msg' => 'Identifiant de réservation manquant ou invalide!!']);
         }
     }
 
@@ -144,7 +143,7 @@ class ReservationController
         if ($delete) {
             View::redirect('reservation/show?courriel=' . $data['courriel']);
         } else {
-            return View::render('error', ['msg' => 'Could not delete!']);
+            return View::render('error', ['msg' => 'Echec de la suppression!']);
         }
     }
 }

@@ -1,4 +1,4 @@
-{{ include('layouts/header.php', {title:'Reservation Edit'})}}
+{{ include('layouts/header.php', {title:'Reservation edit'})}}
 <div class="container">
     <form class="form-base" method="post">
 

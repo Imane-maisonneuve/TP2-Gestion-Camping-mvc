@@ -1,4 +1,4 @@
-{{ include('layouts/header.php', {title:'Site List'})}}
+{{ include('layouts/header.php', {title:'Site index'})}}
 
 <section class="grille">
     {% for site in sites %}
